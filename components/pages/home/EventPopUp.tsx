@@ -39,7 +39,7 @@ export const EventPopUP: FC<{ event: EEvent }> = ({ event }) => {
                 <Calendar className=" size-4" />
                 <p className=" text-xs font-bold">
                   {Intl.DateTimeFormat("en-US", { dateStyle: "short" }).format(
-                    event.venue
+                    event.date
                   )}
                 </p>
               </div>
@@ -47,16 +47,14 @@ export const EventPopUP: FC<{ event: EEvent }> = ({ event }) => {
                 <Clock className=" size-4" />
                 <p className=" text-xs font-bold line-clamp-1">
                   {Intl.DateTimeFormat("en-US", { timeStyle: "short" }).format(
-                    event.venue
+                    event.date
                   )}
                 </p>
               </div>
             </div>
             <div className=" flex space-x-2 items-center">
               <MapPin className=" size-4" />
-              <p className=" text-xs font-bold line-clamp-1">
-                {event.location}
-              </p>
+              <p className=" text-xs font-bold line-clamp-1">{event.venue}</p>
             </div>
           </div>
 
@@ -69,7 +67,7 @@ export const EventPopUP: FC<{ event: EEvent }> = ({ event }) => {
             </div>
             <p className="text-xs text-muted-foreground font-bold ">
               {Intl.DateTimeFormat("en-US", { dateStyle: "short" }).format(
-                event.venue
+                event.date
               )}
             </p>
           </div>
@@ -98,7 +96,7 @@ export const EventPopUP: FC<{ event: EEvent }> = ({ event }) => {
               <Calendar className="size-4" />
               <p>
                 {Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(
-                  event.venue
+                  event.date
                 )}
               </p>
             </div>
@@ -106,13 +104,13 @@ export const EventPopUP: FC<{ event: EEvent }> = ({ event }) => {
               <Clock className="size-4" />
               <p>
                 {Intl.DateTimeFormat("en-US", { timeStyle: "medium" }).format(
-                  event.venue
+                  event.date
                 )}
               </p>
             </div>
             <div className=" flex items-center space-x-2 text-xs font-bold">
               <MapPin className="size-4" />
-              <p>{event.location}</p>
+              <p>{event.venue}</p>
             </div>
           </div>
         </div>
