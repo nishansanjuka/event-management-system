@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Category {
+  CONFERENCE
+  WORKSHOP
+  MEETUP
+  SEMINAR
+  WEBINAR
+  NETWORKING_EVENT
+  TRADE_SHOW
+  EXPO
+  LECTURE
+  PANEL_DISCUSSION
+  TRAINING_SESSION
+  FUNDRAISER
+  SOCIAL_GATHERING
+  PARTY
+  CONCERT
+  FESTIVAL
+  SPORTS_EVENT
+  CHARITY_EVENT
+  HACKATHON
+  COMPETITION
+}
+
+enum RSVPStatus {
+  PENDING
+  GATHERED
+  ABSENT
+}
+
+model User {
+  id            String         @id @default(uuid())
+  clerkId       String         @unique
+  firstName     String?
+  lastName      String?
+  email         String?        @unique
+  phone         String?        @unique
+  gender        Gender?
+  dateOfBirth   DateTime?
+  image         String?
+  rsvp          RSVP?          @relation(fields: [rsvpId], references: [id])
+  rsvpId        String?
+  notifications Notification[]
+  events        Event[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  venue       String
+  date        DateTime
+  category    Category
+  rsvpList    RSVP[]
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model RSVP {
+  id        String     @id @default(uuid())
+  status    RSVPStatus
+  users     User[]
+  Event     Event?     @relation(fields: [eventId], references: [id])
+  eventId   String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Notification {
+  id           String   @id @default(uuid())
+  notification String
+  User         User?    @relation(fields: [userId], references: [id])
+  userId       String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
