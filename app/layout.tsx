@@ -5,11 +5,18 @@ import { cn } from "@/lib/utils";
 import { PropsWithChildren } from "react";
 import { Provider } from "@/providers/provider";
 import NavHeader from "@/components/layouts/NavHeader";
+import { Metadata } from "next";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
+
+export const metadata: Metadata = {
+  title: "Events Sri Lanka",
+  description:
+    "Event Management system that allows users to post, find and participate the events that are available for.",
+};
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
