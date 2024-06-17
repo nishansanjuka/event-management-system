@@ -59,7 +59,7 @@ export async function PUT(req: NextRequest) {
           },
         });
 
-        await SendSubscriptionNotification({
+        SendSubscriptionNotification({
           to: user.emailAddresses[0].emailAddress,
         });
           
@@ -101,7 +101,7 @@ export async function PUT(req: NextRequest) {
             },
           });
 
-          await SendUnSubscribeNotification({
+          SendUnSubscribeNotification({
             to: user.emailAddresses[0].emailAddress,
             event: event as EEvent,
           });
