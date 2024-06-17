@@ -62,7 +62,7 @@ export async function PUT(req: NextRequest) {
         await SendSubscriptionNotification({
           to: user.emailAddresses[0].emailAddress,
         });
-
+          
         return Response.json({ event });
       } else if (action === "cancel") {
         const existingRSVP = await prisma.rSVP.findFirst({

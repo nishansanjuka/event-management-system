@@ -9,7 +9,7 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-export const SendUnSubscribeNotification = async ({
+export const SendUnSubscribeNotification = ({
   to,
   event,
 }: {
@@ -73,4 +73,5 @@ export const SendUnSubscribeNotification = async ({
       throw new Error(error);
     }
   });
+  return "done";
 };

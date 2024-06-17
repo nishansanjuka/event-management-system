@@ -8,7 +8,7 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-export const SendSubscriptionNotification = async ({ to }: { to: string }) => {
+export const SendSubscriptionNotification = ({ to }: { to: string }) => {
   let mailOptions = {
     from: `Events Sri Lanka ${process.env.APP_ADDRESS}`,
     to: to,
@@ -65,4 +65,5 @@ export const SendSubscriptionNotification = async ({ to }: { to: string }) => {
       throw new Error(error);
     }
   });
+  return "done";
 };
