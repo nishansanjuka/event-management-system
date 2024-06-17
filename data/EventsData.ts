@@ -1,4 +1,4 @@
-import { EEvent } from "@/components/pages/home/EventPopUp";
+import { EEvent } from "@/hooks";
 import { Category } from "@prisma/client";
 export const events: EEvent[] = [
   {
@@ -9,9 +9,10 @@ export const events: EEvent[] = [
     date: new Date("2024-07-10T10:00:00Z"),
     category: Category.CONFERENCE,
     userId: "1",
-    user: {
+    User: {
       firstName: "John",
       lastName: "Doe",
+      image: "/",
     },
     createdAt: new Date("2024-01-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),
@@ -24,9 +25,10 @@ export const events: EEvent[] = [
     date: new Date("2024-08-15T09:00:00Z"),
     category: Category.EXPO,
     userId: "2",
-    user: {
+    User: {
       firstName: "Jane",
       lastName: "Smith",
+      image: "/",
     },
     createdAt: new Date("2024-02-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),
@@ -39,9 +41,10 @@ export const events: EEvent[] = [
     date: new Date("2024-09-20T12:00:00Z"),
     category: Category.FESTIVAL,
     userId: "3",
-    user: {
+    User: {
       firstName: "Alice",
       lastName: "Johnson",
+      image: "/",
     },
     createdAt: new Date("2024-03-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),
@@ -54,9 +57,10 @@ export const events: EEvent[] = [
     date: new Date("2024-10-05T08:00:00Z"),
     category: Category.CONFERENCE,
     userId: "4",
-    user: {
+    User: {
       firstName: "Bob",
       lastName: "Brown",
+      image: "/",
     },
     createdAt: new Date("2024-04-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),
@@ -69,9 +73,10 @@ export const events: EEvent[] = [
     date: new Date("2024-11-12T11:00:00Z"),
     category: Category.EXPO,
     userId: "5",
-    user: {
+    User: {
       firstName: "Charlie",
       lastName: "Davis",
+      image: "/",
     },
     createdAt: new Date("2024-05-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),
@@ -84,9 +89,10 @@ export const events: EEvent[] = [
     date: new Date("2024-12-03T14:00:00Z"),
     category: Category.FESTIVAL,
     userId: "6",
-    user: {
+    User: {
       firstName: "Diana",
       lastName: "Evans",
+      image: "/",
     },
     createdAt: new Date("2024-06-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),
@@ -99,9 +105,10 @@ export const events: EEvent[] = [
     date: new Date("2025-01-15T10:00:00Z"),
     category: Category.EXPO,
     userId: "7",
-    user: {
+    User: {
       firstName: "Eve",
       lastName: "Foster",
+      image: "/",
     },
     createdAt: new Date("2024-07-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),
@@ -114,9 +121,10 @@ export const events: EEvent[] = [
     date: new Date("2025-02-20T09:00:00Z"),
     category: Category.WORKSHOP,
     userId: "8",
-    user: {
+    User: {
       firstName: "Frank",
       lastName: "Gordon",
+      image: "/",
     },
     createdAt: new Date("2024-08-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),
@@ -129,9 +137,10 @@ export const events: EEvent[] = [
     date: new Date("2025-03-25T11:00:00Z"),
     category: Category.CONFERENCE,
     userId: "9",
-    user: {
+    User: {
       firstName: "Grace",
       lastName: "Harris",
+      image: "/",
     },
     createdAt: new Date("2024-09-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),
@@ -144,9 +153,10 @@ export const events: EEvent[] = [
     date: new Date("2025-04-15T13:00:00Z"),
     category: Category.COMPETITION,
     userId: "10",
-    user: {
+    User: {
       firstName: "Henry",
       lastName: "Iverson",
+      image: "/",
     },
     createdAt: new Date("2024-10-01T00:00:00Z"),
     updatedAt: new Date("2024-06-01T00:00:00Z"),

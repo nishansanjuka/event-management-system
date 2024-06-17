@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { EventsProvider } from "./events-provider";
 
 export function Provider({
   children,
@@ -8,7 +9,9 @@ export function Provider({
 }) {
   return (
     <>
-      <ClerkProvider>{children}</ClerkProvider>
+      <ClerkProvider>
+        <EventsProvider>{children}</EventsProvider>
+      </ClerkProvider>
     </>
   );
 }

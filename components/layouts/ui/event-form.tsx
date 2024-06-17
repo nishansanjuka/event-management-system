@@ -29,6 +29,17 @@ import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { TimePickerDemo } from "./time-picker-demo";
 import { SelectSingleEventHandler } from "react-day-picker";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Category } from "@prisma/client";
+import { EEvent, useEvents } from "@/hooks";
 
 export const FormEvent: FC<PropsWithChildren> = ({ children }) => {
   const [open, setOpen] = useState(false);
@@ -51,12 +62,15 @@ export interface EventForm {
   description: string;
   date: Date;
   venue: string;
+  category: Category;
 }
 
 const FormRegister: FC<{ setOpen: Dispatch<SetStateAction<boolean>> }> = ({
   setOpen,
 }) => {
   const [isLoading, setisLoading] = useState(false);
+
+  const { addEvent } = useEvents();
 
   const {
     register,
@@ -66,16 +80,28 @@ const FormRegister: FC<{ setOpen: Dispatch<SetStateAction<boolean>> }> = ({
     watch,
   } = useForm<EventForm>();
 
-  const onSubmit: SubmitHandler<EventForm> = (data) => {
+  const onSubmit: SubmitHandler<EventForm> = async (data) => {
     setisLoading(true);
+    const res = await fetch("/api/v1/events", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
     setisLoading(false);
-    setOpen(false);
+    if (res.ok) {
+      setOpen(false);
+      addEvent((await res.json()).event);
+    } else {
+      throw new Error(JSON.stringify(res));
+    }
   };
 
   const date = watch("date");
-
   const handleDateChange = (eventDate: SelectSingleEventHandler | Date) => {
     setValue("date", eventDate as Date);
+  };
+
+  const handleCategory = (value: string) => {
+    setValue("category", value as Category);
   };
 
   return (
@@ -90,7 +116,6 @@ const FormRegister: FC<{ setOpen: Dispatch<SetStateAction<boolean>> }> = ({
           {errors.title?.message}
         </p>
       </div>
-
       <div>
         <Textarea
           className="focus-visible:ring-transparent focus-visible:bg-slate-100 transition-colors duration-200"
@@ -104,7 +129,6 @@ const FormRegister: FC<{ setOpen: Dispatch<SetStateAction<boolean>> }> = ({
           {errors.description?.message}
         </p>
       </div>
-
       <div>
         <Popover>
           <PopoverTrigger asChild>
@@ -143,16 +167,43 @@ const FormRegister: FC<{ setOpen: Dispatch<SetStateAction<boolean>> }> = ({
           {errors.date?.message}
         </p>
       </div>
+      <div className=" flex items-center space-x-1">
+        <div className=" flex-1">
+          <Input
+            className="focus-visible:ring-transparent focus-visible:bg-slate-100 transition-colors duration-200"
+            placeholder="Venue - ex: Lotus Tower, Colombo Sri Lanka"
+            {...register("venue", { required: "Venue is required!" })}
+          />
+          <p className=" text-xs relative left-1 text-red-500 mt-1">
+            {errors.venue?.message}
+          </p>
+        </div>
 
-      <div>
-        <Input
-          className="focus-visible:ring-transparent focus-visible:bg-slate-100 transition-colors duration-200"
-          placeholder="Venue - ex: Lotus Tower, Colombo Sri Lanka"
-          {...register("venue", { required: "Venue is required!" })}
-        />
-        <p className=" text-xs relative left-1 text-red-500 mt-1">
-          {errors.venue?.message}
-        </p>
+        <div>
+          <Select onValueChange={handleCategory}>
+            <SelectTrigger className="w-[180px]  focus:ring-transparent text-left capitalize">
+              <SelectValue placeholder="Kind of category" className="" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Categories</SelectLabel>
+
+                {Object.keys(Category)
+                  .filter((key) => isNaN(Number(key)))
+                  .map((key) => Category[key as keyof typeof Category])
+                  .map((category) => (
+                    <SelectItem
+                      key={`category-${category}`}
+                      value={category}
+                      className="capitalize"
+                    >
+                      {category.toLowerCase()}
+                    </SelectItem>
+                  ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <div className=" space-y-2">

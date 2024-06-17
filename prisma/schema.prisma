@@ -51,8 +51,7 @@ model User {
   gender        Gender?
   dateOfBirth   DateTime?
   image         String?
-  rsvp          RSVP?          @relation(fields: [rsvpId], references: [id])
-  rsvpId        String?
+  rsvpList      RSVP[]
   notifications Notification[]
   events        Event[]
   createdAt     DateTime       @default(now())
@@ -73,13 +72,13 @@ model Event {
   updatedAt   DateTime @updatedAt
 }
 
-
 model RSVP {
   id        String     @id @default(uuid())
   status    RSVPStatus
-  users     User[]
   Event     Event?     @relation(fields: [eventId], references: [id])
   eventId   String?
+  User      User?      @relation(fields: [userId], references: [id])
+  userId    String?
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }

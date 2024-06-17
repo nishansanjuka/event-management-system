@@ -1,180 +1,7 @@
-"use client";
-import { Fragment, useState } from "react";
-import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  MagnifyingGlassIcon,
-  ShoppingBagIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { categoriesData, events } from "@/data";
-import { CategoryPopUp } from "@/components/pages/home";
-import { EventPopUP } from "@/components/pages/home/EventPopUp";
-import logo from "@/public/assets/logo.png";
-import { Button } from "@/components/ui/button";
-
-const navigation = {
-  categories: [
-    {
-      id: "women",
-      name: "Women",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
-          imageAlt:
-            "Models sitting back to back, wearing Basic Tee in black and bone.",
-        },
-        {
-          name: "Basic Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
-          imageAlt:
-            "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
-        },
-      ],
-      sections: [
-        {
-          id: "clothing",
-          name: "Clothing",
-          items: [
-            { name: "Tops", href: "#" },
-            { name: "Dresses", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Denim", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
-          ],
-        },
-        {
-          id: "accessories",
-          name: "Accessories",
-          items: [
-            { name: "Watches", href: "#" },
-            { name: "Wallets", href: "#" },
-            { name: "Bags", href: "#" },
-            { name: "Sunglasses", href: "#" },
-            { name: "Hats", href: "#" },
-            { name: "Belts", href: "#" },
-          ],
-        },
-        {
-          id: "brands",
-          name: "Brands",
-          items: [
-            { name: "Full Nelson", href: "#" },
-            { name: "My Way", href: "#" },
-            { name: "Re-Arranged", href: "#" },
-            { name: "Counterfeit", href: "#" },
-            { name: "Significant Other", href: "#" },
-          ],
-        },
-      ],
-    },
-    {
-      id: "men",
-      name: "Men",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
-          imageAlt:
-            "Drawstring top with elastic loop closure and textured interior padding.",
-        },
-        {
-          name: "Artwork Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
-          imageAlt:
-            "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
-        },
-      ],
-      sections: [
-        {
-          id: "clothing",
-          name: "Clothing",
-          items: [
-            { name: "Tops", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
-          ],
-        },
-        {
-          id: "accessories",
-          name: "Accessories",
-          items: [
-            { name: "Watches", href: "#" },
-            { name: "Wallets", href: "#" },
-            { name: "Bags", href: "#" },
-            { name: "Sunglasses", href: "#" },
-            { name: "Hats", href: "#" },
-            { name: "Belts", href: "#" },
-          ],
-        },
-        {
-          id: "brands",
-          name: "Brands",
-          items: [
-            { name: "Re-Arranged", href: "#" },
-            { name: "Counterfeit", href: "#" },
-            { name: "Full Nelson", href: "#" },
-            { name: "My Way", href: "#" },
-          ],
-        },
-      ],
-    },
-  ],
-  pages: [
-    { name: "Company", href: "#" },
-    { name: "Stores", href: "#" },
-  ],
-};
-
-const favorites = [
-  {
-    id: 1,
-    name: "Black Basic Tee",
-    price: "$32",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-03-favorite-01.jpg",
-    imageAlt: "Model wearing women's black cotton crewneck tee.",
-  },
-  {
-    id: 2,
-    name: "Off-White Basic Tee",
-    price: "$32",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-03-favorite-02.jpg",
-    imageAlt: "Model wearing women's off-white cotton crewneck tee.",
-  },
-  {
-    id: 3,
-    name: "Mountains Artwork Tee",
-    price: "$36",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-03-favorite-03.jpg",
-    imageAlt:
-      "Model wearing women's burgundy red crewneck artwork tee with small white triangle overlapping larger black triangle.",
-  },
-];
+import { CategoryPopUp, LatestEvents } from "@/components/pages/home";
 
 const footerNavigation = {
   shop: [
@@ -205,13 +32,7 @@ const footerNavigation = {
   ],
 };
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function HomePage() {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="bg-white absolute sm:top-0 left-0 w-full top-5">
       <header className="relative overflow-hidden">
@@ -340,29 +161,27 @@ export default function HomePage() {
               <div className="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
                 {categoriesData
                   .filter((_, index) => index < 3)
-                  .map(({ name, description, image }) => (
-                    <>
-                      <div className="group relative">
-                        <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
-                          <Image
-                            width={1000}
-                            height={667}
-                            src={image}
-                            alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <h3 className="mt-6 text-sm text-gray-500">
-                          <a href="#">
-                            <span className="absolute inset-0"></span>
-                            {name}
-                          </a>
-                        </h3>
-                        <p className="text-base font-semibold text-gray-900">
-                          {description}
-                        </p>
+                  .map(({ name, description, image }, index) => (
+                    <div key={`categories-${index}`} className="group relative">
+                      <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                        <Image
+                          width={1000}
+                          height={667}
+                          src={image}
+                          alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
+                          className="h-full w-full object-cover object-center"
+                        />
                       </div>
-                    </>
+                      <h3 className="mt-6 text-sm text-gray-500">
+                        <a href="#">
+                          <span className="absolute inset-0"></span>
+                          {name}
+                        </a>
+                      </h3>
+                      <p className="text-base font-semibold text-gray-900">
+                        {description}
+                      </p>
+                    </div>
                   ))}
               </div>
             </div>
@@ -407,7 +226,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Favorites section */}
+        {/* Latest section */}
         <section aria-labelledby="favorites-heading">
           <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
             <div className="sm:flex sm:items-baseline sm:justify-between">
@@ -425,15 +244,7 @@ export default function HomePage() {
                 <span aria-hidden="true"> &rarr;</span>
               </a>
             </div>
-
-            <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-0 lg:gap-x-8">
-              {events
-                .filter((_, index) => index < 3)
-                .map((event, index) => (
-                  <EventPopUP event={event as any} key={`${index}`} />
-                ))}
-            </div>
-
+            <LatestEvents />
             <div className="mt-6 sm:hidden">
               <a
                 href="#"
